@@ -1,0 +1,9 @@
+function [pval_full, corr_full, pval_res, corr_res, ...
+        mean_activity] = predict_individuals(output_folder, ...
+        suffix, paths_nifti, model, params, opts)
+
+        [pval_full, corr_full, pval_res, corr_res, ...
+                mean_activity, ~] = infer(paths_nifti, model, output_folder, 0, 0, [], params, "", opts);
+        
+
+end

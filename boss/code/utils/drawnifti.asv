@@ -1,0 +1,26 @@
+function outnifti = drawnifti(outnifti, indices, values, brick)
+    values_counter = zeros(size(outnifti));
+    for i = 1:length(values)
+
+            [x,y,z] = ind2sub(size(outnifti,1:3), indices(i));
+
+            outnifti(x, y, z, brick) = outnifti(x, y, z, brick) + values(i);
+            values_counter(x, y, z, brick) = values_counter(x, y, z, brick) + 1;
+    end
+
+end
+
+% function outnifti = drawnifti(outnifti, indices, values, brick)
+%     values_counter = zeros(size(outnifti));
+%     for i = 1:length(values)
+% 
+%         for j = 1: numel(indices{i})
+%             [x,y,z] = ind2sub(size(outnifti,1:3), indices{i}(j));
+% 
+%             outnifti(x, y, z, brick) = outnifti(x, y, z, brick) + values(i);
+%             values_counter(x, y, z, brick) = values_counter(x, y, z, brick) + 1;
+%         end
+%     end
+%     nonzeroes_counter = values_counter > 0;
+%     outnifti(nonzeroes_counter) = outnifti(nonzeroes_counter) ./ values_counter(nonzeroes_counter);
+% end

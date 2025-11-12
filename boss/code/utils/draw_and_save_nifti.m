@@ -1,0 +1,19 @@
+function draw_and_save_nifti(template, out_file, indices, info_outnifti, volumes)
+    if iscell(volumes)
+        outnifti = zeros([template.size, size(volumes, 1)*size(volumes, 2)]);
+        brick_counter = 1;
+        for i = 1 : size(volumes, 1)
+            for j = 1 : size(volumes, 2)
+                outnifti = drawnifti(outnifti, indices, cat(2, volumes{i,j}), brick_counter);
+                brick_counter = brick_counter + 1;
+            end
+        end
+    else
+        outnifti = zeros([template.size, size(volumes, 2)]);
+        for i = 1 : size(volumes, 2)
+            outnifti = drawnifti(outnifti, indices, volumes(:, i), i);
+        end
+    end
+    info_outnifti.ImageSize = size(outnifti);
+    niftiwrite(single(outnifti), out_file, info_outnifti, 'Compressed', true);
+end
